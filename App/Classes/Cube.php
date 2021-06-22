@@ -95,4 +95,12 @@ class Cube
             echo "<h2><b style=' color: darkslateblue'>Winner computer</b></h2>";
         }
     }
+
+    public function renderResults(): void
+    {
+        echo "move Player summa {$this->player()} = <img width='50' height='50' src='/images/{$this->cubeOne}.png'> +
+        <img width='50' height='50' src='images/{$this->cubeTwo}.png'>" . "<br><br><br>";
+        echo "move Computer summa {$this->computer()} =   <img width='50' height='50' src='/images/{$this->cubeOne}.png'> +
+        <img width='50' height='50' src='images/{$this->cubeTwo}.png'>" . "<br><br><br>";
+    }
 }
