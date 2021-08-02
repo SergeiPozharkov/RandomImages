@@ -2,18 +2,34 @@
 
 include "../vendor/autoload.php";
 
-use Classes\Cube;
-use Classes\Roulette;
+use Classes\Dices;
+use Classes\ShowDices;
 
-$cube = new Cube();
-$roulette = new Roulette();
+//
+//use Classes\Dices;
+//use Classes\Roulette;
+//use Classes\ShowRoulette;
+//
+//$cube = new Dices();
+//$showRoulette = new ShowRoulette(new Roulette(2));
+//
+//echo $showRoulette->showImage();
+//echo $showRoulette->showWinner();
+//$cube->renderResults();
+//$cube->checkWinner();
 
-$cube->renderResults();
-$cube->checkWinner();
-//print_r($roulette->random()) . "<br><br><br>";
-echo $roulette->showRandomImage() . "<br><br><br>";
-//foreach ($roulette->random() as $img) {
-//   echo "<img width='50' height='50' src='img/$img.png'>";
-//}
+//echo $roulette->showRandomImage() . "<br><br><br>";
+
 //echo $roulette->checkWinner();
 
+
+$dices = new Dices();
+
+$dices->turnComputer();
+$dices->turnPlayer();
+$showDices = new ShowDices($dices);
+echo "Computer<br>";
+echo $showDices->showDicesComputer();
+echo "Player<br>";
+echo $showDices->showDicesPlayer();
+echo $showDices->showWinner();

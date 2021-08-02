@@ -6,44 +6,68 @@ namespace Classes;
 
 class Roulette
 {
-    protected int $one;
-    protected int $two;
-    protected int $three;
+    /**
+     * @var int
+     */
+    protected int $imageCount;
+    /**
+     * @var array
+     */
+    protected array $randomArr = [];
 
-    public function random(): array
+    /**
+     * @return array
+     */
+    public function getRandomArr(): array
+    {
+        return $this->randomArr;
+    }
+
+    /**
+     * Roulette constructor.
+     * @param int $imageCount
+     * @throws \Exception
+     */
+    public function __construct(int $imageCount)
+    {
+        $this->setImageCount($imageCount);
+        $this->randomArr = $this->generationRandomArr();
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function generationRandomArr(): array
     {
         $arr = [];
-        $arr[] = $this->one = random_int(0, 2);
-        $arr[] = $this->two = random_int(0, 2);
-        $arr[] = $this->three = random_int(0, 2);
+        for ($i = 0; $i <= $this->imageCount; $i++) {
+            $arr[] = random_int(0, $this->imageCount);
+
+        }
         return $arr;
     }
 
-    public function showRandomImage(): string
+    /**
+     * @return bool
+     */
+    public function checkWinner(): bool
     {
-        $html = "";
-        foreach ($this->random() as $img) {
-            $html .= "<img width='50' height='50' src='/img/$img.png'>";
-        }
-        return "<div>$html</div>";
-    }
-
-    public function checkWinner(): string
-    {
-        $result = "";
-        for ($i = 0; $i < count($this->random()); $i++) {
-            if ($this->random()[$i] == 0 && $this->random()[$i] == 0 && $this->random()[$i] == 0) {
-                $result = "YOU WINNER!!!";
-            } elseif ($this->random()[$i] == 1 && $this->random()[$i] == 1 && $this->random()[$i] == 1) {
-                $result = "YOU WINNER!!!";
-            } elseif ($this->random()[$i] == 2 && $this->random()[$i] == 2 && $this->random()[$i] == 2) {
-                $result = "YOU WINNER!!!";
-            } else {
-                $result = "YOU LOSING";
+        for ($i = 0; $i < count($this->randomArr) - 1; $i++) {
+            if ($this->randomArr[$i] != $this->randomArr[$i + 1]) {
+                return false;
             }
         }
-        return $result;
+        return true;
     }
 
-
+    /**
+     * @param int $imageCount
+     * @return $this
+     */
+    public function setImageCount(int $imageCount): static
+    {
+        $this->imageCount = $imageCount;
+        return $this;
+    }
 }
